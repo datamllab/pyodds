@@ -1,5 +1,5 @@
 from sklearn.covariance import EllipticEnvelope
-from algo.base import Base
+from pyodds.algo.base import Base
 
 class RCOV(EllipticEnvelope,Base):
     '''

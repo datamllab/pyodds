@@ -1,5 +1,5 @@
 from sklearn.ensemble.iforest import IsolationForest
-from algo.base import Base
+from pyodds.algo.base import Base
 
 class IFOREST(IsolationForest,Base):
 

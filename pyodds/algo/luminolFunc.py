@@ -1,4 +1,4 @@
-from .base import Base
+from pyodds.algo.base import Base
 from luminol import anomaly_detector
 import numpy as np
 import pandas as pd

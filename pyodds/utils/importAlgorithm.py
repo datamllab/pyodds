@@ -1,18 +1,18 @@
-from algo.iforest import IFOREST
-from algo.ocsvm import OCSVM
-from algo.lof import LOF
-from algo.robustcovariance import RCOV
-from algo.staticautoencoder import StaticAutoEncoder
-from algo.luminolFunc import luminolDet
-from algo.cblof import CBLOF
-from algo.knn import KNN
-from algo.hbos import HBOS
-from algo.sod import SOD
-from algo.pca import PCA
-from algo.dagmm import DAGMM
-from algo.lstmad import LSTMAD
-from algo.lstmencdec import LSTMED
-from algo.autoencoder import AUTOENCODER
+from pyodds.algo.iforest import IFOREST
+from pyodds.algo.ocsvm import OCSVM
+from pyodds.algo.lof import LOF
+from pyodds.algo.robustcovariance import RCOV
+from pyodds.algo.staticautoencoder import StaticAutoEncoder
+from pyodds.algo.luminolFunc import luminolDet
+from pyodds.algo.cblof import CBLOF
+from pyodds.algo.knn import KNN
+from pyodds.algo.hbos import HBOS
+from pyodds.algo.sod import SOD
+from pyodds.algo.pca import PCA
+from pyodds.algo.dagmm import DAGMM
+from pyodds.algo.lstmad import LSTMAD
+from pyodds.algo.lstmencdec import LSTMED
+from pyodds.algo.autoencoder import AUTOENCODER
 
 def algorithm_selection(algorithm,random_state,contamination):
     """

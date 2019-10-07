@@ -1,5 +1,5 @@
 import numpy as np
-from algo.base import Base
+from pyodds.algo.base import Base
 from scipy.spatial.distance import cdist
 from sklearn.cluster import KMeans
 import warnings

@@ -5,8 +5,8 @@ from scipy.stats import multivariate_normal
 from torch.autograd import Variable
 from tqdm import trange
 
-from .algorithm_utils import deepBase, PyTorchUtils
-from algo.base import Base
+from pyodds.algo.algorithm_utils import deepBase, PyTorchUtils
+from pyodds.algo.base import Base
 
 
 class LSTMAD(Base,deepBase, PyTorchUtils):

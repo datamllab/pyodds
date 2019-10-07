@@ -1,5 +1,5 @@
 from sklearn.svm import OneClassSVM
-from algo.base import Base
+from pyodds.algo.base import Base
 
 class OCSVM(OneClassSVM,Base):
     """Unsupervised Outlier Detection.

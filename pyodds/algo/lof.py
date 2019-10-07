@@ -1,5 +1,5 @@
 from sklearn.neighbors import LocalOutlierFactor
-from algo.base import Base
+from pyodds.algo.base import Base
 
 class LOF(LocalOutlierFactor,Base):
 

@@ -1,14 +1,13 @@
-
 import numpy as np
 import argparse
 import time
 import logging
 import getpass
+import warnings
 from pyodds.utils.utilities import output_performance,insert_demo_data,connect_server,query_data
 from pyodds.utils.importAlgorithm import algorithm_selection
 from pyodds.utils.plotUtils import visualize_distribution_static,visualize_distribution_time_serie,visualize_outlierscore,visualize_distribution
-import warnings
-from utils.utilities import str2bool
+from pyodds.utils.utilities import str2bool
 warnings.simplefilter(action='ignore', category=FutureWarning)
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 warnings.simplefilter("ignore", UserWarning)
@@ -30,7 +29,7 @@ if __name__ == '__main__':
     parser.add_argument('--end_time',default='2019-08-20 00:00:00')
     parser.add_argument('--time_serie_name',default='ts')
     parser.add_argument('--ground_truth',const=True,type=str2bool,nargs='?')
-    parser.add_argument('--saving_path',default='../output/img')
+    parser.add_argument('--saving_path',default='./output/img')
 
 
     args = parser.parse_args()
@@ -80,7 +79,7 @@ if __name__ == '__main__':
         if not args.time_stamp:
             visualize_distribution_static(data,prediction_result,outlierness,args.saving_path)
             visualize_distribution(data,prediction_result,outlierness,args.saving_path)
-            visualize_outlierscore(outlierness,prediction_result,args.contamination)
+            visualize_outlierscore(outlierness,prediction_result,args.contamination,args.saving_path)
         else:
             visualize_distribution_time_serie(clf.ts,data,args.saving_path)
             visualize_outlierscore(outlierness,prediction_result,args.contamination,args.saving_path)

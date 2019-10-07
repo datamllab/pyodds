@@ -10,8 +10,8 @@ from sklearn.utils.validation import check_is_fitted
 from sklearn.utils.validation import check_array
 from numpy import percentile
 
-from .base import Base
-from utils.utilities import check_parameter,standardizer
+from pyodds.algo.base import Base
+from pyodds.utils.utilities import check_parameter,standardizer
 
 
 class PCA(Base):

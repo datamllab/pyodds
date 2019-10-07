@@ -3,8 +3,8 @@ from sklearn.neighbors import NearestNeighbors
 from sklearn.utils import check_array
 from numpy import percentile
 
-from .base import Base
-from utils.utilities import check_parameter
+from pyodds.algo.base import Base
+from pyodds.utils.utilities import check_parameter
 
 class SOD(Base):
     """Subspace outlier detection (SOD) schema aims to detect outlier in

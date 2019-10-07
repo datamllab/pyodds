@@ -11,10 +11,10 @@ from torch.autograd import Variable
 from torch.utils.data import DataLoader
 from tqdm import trange
 
-from .algorithm_utils import deepBase, PyTorchUtils
-from .autoencoder import AutoEncoderModule
-from .lstmencdec import LSTMEDModule
-from algo.base import Base
+from pyodds.algo.algorithm_utils import deepBase, PyTorchUtils
+from pyodds.algo.autoencoder import AutoEncoderModule
+from pyodds.algo.lstmencdec import LSTMEDModule
+from pyodds.algo.base import Base
 
 
 class DAGMM(Base,deepBase, PyTorchUtils):

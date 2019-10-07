@@ -10,7 +10,7 @@ from sklearn.utils import check_array
 from sklearn.utils.validation import check_is_fitted
 from numpy import percentile
 
-from .base import Base
+from pyodds.algo.base import Base
 
 
 class KNN(Base):
