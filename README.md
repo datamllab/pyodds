@@ -13,7 +13,7 @@ PyODDS is featured for:
 
   - **Powerful Data Analysis Mechanism** which supports both **static and time-series data** analysis with flexible time-slice(sliding-window) segmentation.  
 
-The Full API Reference can be found in [`handbook`](https://https://pyodds.github.io/).
+The Full API Reference can be found in [`handbook`](https://pyodds.github.io/).
 
 ## API Demo:
 
@@ -165,7 +165,7 @@ luminol | Linkedin's luminol	 | :class:`algo.luminol.LUMINOL`
 
 ## APIs Cheatsheet
 
-The Full API Reference can be found in [`handbook`](https://https://pyodds.github.io/).
+The Full API Reference can be found in [`handbook`](https://pyodds.github.io/).
 
   - **connect_server(hostname,username,password)**: Connect to Apache backend TDengine Service.
 
