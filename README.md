@@ -79,7 +79,7 @@ processing time: 15.330137 seconds
 connection is closed
 
 ```
-<img src="https://github.com/yli96/PyOutlierDetectionSys/blob/master/output/img/Result.png" width="50%" height="45%">
+<img src="https://github.com/datamllab/PyODDS/blob/master/output/img/Result.png" width="50%" height="45%">
 
 ## Installation
 
