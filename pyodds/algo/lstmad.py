@@ -45,7 +45,7 @@ class LSTMAD(Base,deepBase, PyTorchUtils):
 
     """
 
-    def __init__(self, len_in=1, len_out=10, num_epochs=100, lr=1e-3, batch_size=1,
+    def __init__(self, len_in=1, len_out=10, num_epochs=10, lr=1e-3, batch_size=1,
                  seed: int=None, gpu: int=None, details=True,contamination=0.05):
         deepBase.__init__(self, __name__, 'LSTM-AD', seed, details=details)
         PyTorchUtils.__init__(self, seed, gpu)

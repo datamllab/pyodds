@@ -13,7 +13,7 @@ from sklearn.utils import check_array
 MAX_INT = np.iinfo(np.int32).max
 MIN_INT = -1 * MAX_INT
 
-def insert_demo_data(conn,consur,database,table,start_time,end_time,time_serie,ground_truth_flag):
+def insert_demo_data(conn,consur,database,table,ground_truth_flag):
     """
     Inserting demo_data. Monitoring the process of database operations with to create a database and table, with time stamps.
 
@@ -27,12 +27,6 @@ def insert_demo_data(conn,consur,database,table,start_time,end_time,time_serie,g
         Connect database name.
     table: str
         Table to query from.
-    start_time: str
-        Time range, start from.
-    end_time: str
-        Time range, end from.
-    time_serie: bool, optional (default=False)
-        Whether contains time stamps as one of the features or not.
     ground_truth_flag: bool, optional (default=False)
         Whether uses ground truth to evaluate the performance or not.
 
@@ -339,11 +333,6 @@ def query_data(conn,cursor,database,table,start_time,end_time,time_serie_name,gr
         X.fillna(method='ffill')
         X.fillna(method='bfill')
         return X
-
-
-
-
-
 
 
 

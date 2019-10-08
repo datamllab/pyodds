@@ -6,7 +6,7 @@ import numpy as np
 sns.set(style="ticks")
 
 
-def visualize_distribution(X,prediction,score,path):
+def visualize_distribution(X,prediction,score,path=None):
     """
     Visualize the original density distribution of the data in 2-dimension space.
 
@@ -26,10 +26,12 @@ def visualize_distribution(X,prediction,score,path):
     X=X.to_numpy()
     X_embedding = TSNE(n_components=2).fit_transform(X)
     sns_plot=sns.jointplot(X_embedding[:,1],X_embedding[:,0], kind="kde", space=0, color="#4CB391")
-    sns_plot.savefig(path+'/distribution.png')
+    if path:
+        sns_plot.savefig(path+'/distribution.png')
+    plt.show()
 
 
-def visualize_distribution_static(X,prediction,score, path):
+def visualize_distribution_static(X,prediction,score, path=None):
     """
     Visualize the original distribution of the data in 2-dimension space, which outliers/inliers are colored as differnet scatter plot.
 
@@ -57,11 +59,13 @@ def visualize_distribution_static(X,prediction,score, path):
             outlier_label.append('outlier')
     X_outlier = pd.DataFrame({'x_emb':X_embedding[:,0],'y_emb':X_embedding[:,1],'outlier_label':np.array(outlier_label),'score':np.array(score)})
     new_sns = sns.scatterplot(x="x_emb", y="y_emb",hue = "score", sizes =20, palette = 'BuGn_r',legend = False, data = X_outlier)
-    new_sns.get_figure().savefig(path+'/distribution_withoutlier.png')
+    if path:
+        new_sns.get_figure().savefig(path+'/distribution_withoutlier.png')
+    plt.show()
 
 
 
-def visualize_distribution_time_serie(ts,value,path):
+def visualize_distribution_time_serie(ts,value,path=None):
     """
     Visualize the time-serie data in each individual dimensions.
 
@@ -81,12 +85,13 @@ def visualize_distribution_time_serie(ts,value,path):
     data = pd.DataFrame(value,ts)
     data = data.rolling(2).mean()
     sns_plot=sns.lineplot(data=data, palette="BuGn_r", linewidth=0.5)
-    sns_plot.figure.savefig(path+'/timeserie.png')
+    if path:
+        sns_plot.figure.savefig(path+'/timeserie.png')
     plt.show()
 
 
 
-def visualize_outlierscore(value,label,contamination,path):
+def visualize_outlierscore(value,label,contamination,path=None):
     """
     Visualize the predicted outlier score.
 
@@ -123,12 +128,13 @@ def visualize_outlierscore(value,label,contamination,path):
     plt.hlines(threshold, xmin=0, xmax=len(X_outlier)-1, colors="g", zorder=100, label='Threshold')
     threshold = ranking[int((contamination) * len(ranking))]
     plt.hlines(threshold, xmin=0, xmax=len(X_outlier)-1, colors="g", zorder=100, label='Threshold2')
-    plt.savefig(path+'/visualize_outlierscore.png')
+    if path:
+        plt.savefig(path+'/visualize_outlierscore.png')
     plt.show()
 
 
 
-def visualize_outlierresult(X,label,path):
+def visualize_outlierresult(X,label,path=None):
     """
     Visualize the predicted outlier result.
 
@@ -143,5 +149,6 @@ def visualize_outlierresult(X,label,path):
     X['outlier']=pd.Series(label)
     pal = dict(inlier="#4CB391", outlier="gray")
     g = sns.pairplot(X, hue="outlier", palette=pal)
-    plt.savefig(path+'/visualize_outlierresult.png')
+    if path:
+        plt.savefig(path+'/visualize_outlierresult.png')
     plt.show()
