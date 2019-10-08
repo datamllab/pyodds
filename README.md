@@ -38,9 +38,25 @@ visualize_distribution(X_test,prediction_result,outlierness_score)
 
 ```
 
+## Cite this work
+
+
+Yuening Li, Daochen Zha, Na Zou, Xia Hu. "PyODDS: An End-to-End Outlier Detection System"  ([Download](https://arxiv.org/abs/1910.02575))
+
+Biblatex entry:
+
+    @misc{1910.02575,
+      Author = {Yuening Li and Daochen Zha and Na Zou and Xia Hu},
+      Title = {PyODDS: An End-to-End Outlier Detection System},
+      Year = {2019},
+      Eprint = {arXiv:1910.02575},
+    }
+
+
+
 ## Quick Start
 ```sh
-python main.py --ground_truth --visualize_distribution
+python demo.py --ground_truth --visualize_distribution
 ```
 
 ### Results are shown as
