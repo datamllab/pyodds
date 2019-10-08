@@ -13,4 +13,4 @@ before_script:
   - pip install pytest-cover
 script:
   - ./install.sh
-  - py.test test/ --cov=pyodds
+  - py.test --cov-report term --cov=pyodds test/
