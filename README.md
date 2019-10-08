@@ -41,7 +41,7 @@ visualize_distribution(X_test,prediction_result,outlierness_score)
 ## Cite this work
 
 
-Yuening Li, Daochen Zha, Na Zou, Xia Hu. "PyODDS: An End-to-End Outlier Detection System"  ([Download](https://arxiv.org/abs/1910.02575))
+Yuening Li, Daochen Zha, Na Zou, Xia Hu. "PyODDS: An End-to-End Outlier Detection System"  ([Download](https://arxiv.org/pdf/1910.02575.pdf))
 
 Biblatex entry:
 
