@@ -1,6 +1,9 @@
 language: python
+python:
+- '3.6'
 sudo: required
 install:
+  - pip install -r requirements.txt --quiet
   - git clone git@github.com:yli96/TDengine.git
   - cd TDengine/
   - mkdir build && cd build
