@@ -48,7 +48,7 @@ def algorithm_selection(algorithm,random_state,contamination):
                    'dagmm':DAGMM(contamination=contamination,num_epochs=10, lambda_energy=0.1, lambda_cov_diag=0.005, lr=1e-3, batch_size=50, gmm_k=3, normal_percentile=80, sequence_length=30, autoencoder_args=None),
                    'luminol': luminolDet(contamination=contamination),
                    'autoencoder':AUTOENCODER(contamination=contamination,num_epochs=10, batch_size=20, lr=1e-3,hidden_size=5, sequence_length=30, train_gaussian_percentage=0.25),
-                   'lstm_ad':LSTMAD(contamination=contamination,len_in=1, len_out=10, num_epochs=100, lr=1e-3, batch_size=1),
+                   'lstm_ad':LSTMAD(contamination=contamination,len_in=1, len_out=10, num_epochs=10, lr=1e-3, batch_size=1),
                    'lstm_ed':LSTMED(contamination=contamination,num_epochs=10, batch_size=20, lr=1e-3,hidden_size=5, sequence_length=30, train_gaussian_percentage=0.25)
                    }
     alg = algorithm_dic[algorithm]

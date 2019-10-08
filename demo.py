@@ -17,7 +17,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description="Anomaly Detection Platform Settings")
     parser.add_argument('--host', default='127.0.0.1')
-    parser.add_argument('--user', default='yli')
+    parser.add_argument('--user', default='username')
     parser.add_argument('--random_seed',default=42, type=int)
     parser.add_argument('--database',default='db')
     parser.add_argument('--table',default='t')
@@ -47,9 +47,9 @@ if __name__ == '__main__':
     print('Load dataset and table')
     start_time = time.clock()
     if args.ground_truth:
-        ground_truth_whole=insert_demo_data(conn,cursor,args.database,args.table,args.start_time,args.end_time,args.time_stamp,args.ground_truth)
+        ground_truth_whole=insert_demo_data(conn,cursor,args.database,args.table,args.ground_truth)
     else:
-        insert_demo_data(conn,cursor,args.database,args.table,args.start_time,args.end_time,args.time_stamp,args.ground_truth)
+        insert_demo_data(conn,cursor,args.database,args.table,args.ground_truth)
 
 
     if args.ground_truth:
