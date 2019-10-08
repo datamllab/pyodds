@@ -1,7 +1,7 @@
 language: python
 sudo: required
 install:
-  - git clone git@github.com:taosdata/TDengine.git
+  - git clone git@github.com:yli96/TDengine.git
   - cd TDengine/
   - mkdir build && cd build
   - cmake .. && cmake --build .
@@ -14,4 +14,4 @@ before_script:
   - pip install python-coveralls
   - pip install pytest-cover
 script:
-  - py.test tests/ --cov=rlcard
+  - py.test test/ --cov=pyodds
