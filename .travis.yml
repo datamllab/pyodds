@@ -4,7 +4,7 @@ python:
 sudo: required
 
 before install:
-    - chmod +x build.sh
+    - chmod +x install.sh
 
 before_script:
   - pip install matplotlib
