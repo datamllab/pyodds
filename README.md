@@ -86,7 +86,6 @@ connection is closed
 To install the package, please use the [`pip`](https://pip.pypa.io/en/stable/installing/) installation as follows:
 
 ```sh
-pip install sqlserveradservice
 pip install git+git@github.com:datamllab/PyODDS.git
 ```
 **Note:** SQL-Server Anomaly Detection Service is only compatible with **Python 3.6** and above.
