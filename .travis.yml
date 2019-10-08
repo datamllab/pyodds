@@ -3,6 +3,9 @@ python:
 - '3.6'
 sudo: required
 
+before install:
+    - chmod +x build.sh
+
 before_script:
   - pip install matplotlib
   - pip install dm-sonnet
