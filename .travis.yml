@@ -3,7 +3,7 @@ python:
 - '3.6'
 sudo: required
 install:
-  - git clone git@github.com:yli96/TDengine.git
+  - git clone https://github.com/datamllab/PyODDS.git
   - cd TDengine/
   - mkdir build && cd build
   - cmake .. && cmake --build .
