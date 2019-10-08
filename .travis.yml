@@ -3,13 +3,6 @@ python:
 - '3.6'
 sudo: required
 install:
-  - git clone https://github.com/datamllab/PyODDS.git
-  - cd TDengine/
-  - mkdir build && cd build
-  - cmake .. && cmake --build .
-  - cd ..
-  - pip install src/connector/python/linux/python3
-  - sudo taosd & pip install -e .
   - pip install -r requirements.txt --quiet
 
 before_script:
@@ -18,4 +11,5 @@ before_script:
   - pip install python-coveralls
   - pip install pytest-cover
 script:
+  - ./install.sh
   - py.test test/ --cov=pyodds
