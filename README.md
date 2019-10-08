@@ -45,8 +45,8 @@ Yuening Li, Daochen Zha, Na Zou, Xia Hu. "PyODDS: An End-to-End Outlier Detectio
 
 Biblatex entry:
 
-    @misc{1910.02575,
-      Author = {Yuening Li and Daochen Zha and Na Zou and Xia Hu},
+    @article{li2019pyodds,
+      author = {Li, Yuening and Zha,Daochen and Zou,Na and Hu,Xia},
       Title = {PyODDS: An End-to-End Outlier Detection System},
       Year = {2019},
       Eprint = {arXiv:1910.02575},
@@ -87,7 +87,7 @@ To install the package, please use the [`pip`](https://pip.pypa.io/en/stable/ins
 
 ```sh
 pip install sqlserveradservice
-pip install git+https://github.com/yli96/PyOutlierDetectionSys.git
+pip install git+git@github.com:datamllab/PyODDS.git
 ```
 **Note:** SQL-Server Anomaly Detection Service is only compatible with **Python 3.6** and above.
 
