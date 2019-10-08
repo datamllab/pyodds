@@ -13,6 +13,8 @@ PyODDS is featured for:
 
   - **Powerful Data Analysis Mechanism** which supports both **static and time-series data** analysis with flexible time-slice(sliding-window) segmentation.  
 
+The Full API Reference can be found in [`handbook`](https://https://pyodds.github.io/).
+
 ## API Demo:
 
 
