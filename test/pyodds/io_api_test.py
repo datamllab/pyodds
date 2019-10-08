@@ -60,3 +60,9 @@ def function_test():
     check_parameter(2)
     standardizer(np.random.rand(3,2)*100)
     str2bool('True')
+
+if __name__ == "__main__":
+    io_test_static()
+    io_test_time_serie()
+    function_test()
+    print("Everything passed")

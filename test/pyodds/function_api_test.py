@@ -46,3 +46,8 @@ def test_timestamp_api():
         outlierness = clf.decision_function(data)
         output_performance(alg, ground_truth, prediction_result, time.clock() - start_time, outlierness)
     conn.close()
+
+if __name__ == "__main__":
+    test_static_api()
+    test_timestamp_api()
+    print("Everything passed")
