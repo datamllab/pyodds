@@ -1,18 +1,17 @@
 from distutils.core import setup
 
-from setuptools import find_packages
+from setuptools import find_packages,setup
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(
     name='pyodds',
-    version='1.0.0a0',
+    version='1.0.0',
     description='An end-to-end anomaly detection system',
     author='Data Analytics at Texas A&M (DATA) Lab, Yuening Li',
     author_email='yuehningli@gmail.com',
-    download_url='https://github.com/yli96/PyOutlierDetectionSys/archive/master.zip',
-    keywords=['AnomalyDetection', 'SQLServer'],
+    url='https://github.com/datamllab/PyODDS'
     install_requires=[
         'tensorflow>=2.0.0b1',
         'scikit-learn',

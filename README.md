@@ -1,6 +1,7 @@
 # PyODDS
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3456033f37744ae2a5a69da448ee430d)](https://www.codacy.com/manual/pyodds/PyODDS?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pyodds/PyODDS&amp;utm_campaign=Badge_Grade)
 [![Known Vulnerabilities](https://snyk.io//test/github/pyodds/PyODDS/badge.svg?targetFile=requirements.txt)](https://snyk.io//test/github/pyodds/PyODDS?targetFile=requirements.txt)
+[![PyPI version](https://badge.fury.io/py/pyodds.svg)](https://badge.fury.io/py/pyodds)
 
 **PyODDS** is an end-to end **Python** system for **outlier** **detection** with **database** **support**. PyODDS provides outlier detection algorithms which meet the demands for users in different fields, w/wo data science or machine learning background. PyODDS gives the ability to execute machine learning algorithms in-database without moving data out of the database server or over the network. It also provides access to a wide range of outlier detection algorithms, including statistical analysis and more recent deep learning based approaches.
 
@@ -86,6 +87,7 @@ connection is closed
 To install the package, please use the [`pip`](https://pip.pypa.io/en/stable/installing/) installation as follows:
 
 ```sh
+pip install pyodds
 pip install git+git@github.com:datamllab/PyODDS.git
 ```
 **Note:** SQL-Server Anomaly Detection Service is only compatible with **Python 3.6** and above.
