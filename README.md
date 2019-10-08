@@ -90,7 +90,7 @@ To install the package, please use the [`pip`](https://pip.pypa.io/en/stable/ins
 pip install pyodds
 pip install git+git@github.com:datamllab/PyODDS.git
 ```
-**Note:** SQL-Server Anomaly Detection Service is only compatible with **Python 3.6** and above.
+**Note:** PyODDS is only compatible with **Python 3.6** and above.
 
 ### Required Dependencies
 
@@ -119,7 +119,7 @@ sudo apt-get install maven
 ```
 To install the TDengine as the back-end database service, please refer to [this instruction](https://www.taosdata.com/en/getting-started/#Install-from-Package).
 
-To enable the Python client APIs for TDengine, please follow to [this handbook](https://www.taosdata.com/en/documentation/connector/#Python-Connector). 
+To enable the Python client APIs for TDengine, please follow [this handbook](https://www.taosdata.com/en/documentation/connector/#Python-Connector). 
 
 To insure the locale in config file is valid:
 
