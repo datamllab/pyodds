@@ -2,8 +2,8 @@ import pytest
 import numpy as np
 import time
 
-from ...pyodds.utils.utilities import output_performance,insert_demo_data,connect_server,query_data
-from ...pyodds.utils.importAlgorithm import algorithm_selection
+from pyodds.utils.utilities import output_performance,insert_demo_data,connect_server,query_data
+from pyodds.utils.importAlgorithm import algorithm_selection
 
 # @pytest.fixture(scope='module')
 def test_static_api():
