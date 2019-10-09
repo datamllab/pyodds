@@ -4,7 +4,7 @@ import time
 
 from pyodds.utils.utilities import output_performance,insert_demo_data,connect_server,query_data
 from pyodds.utils.importAlgorithm import algorithm_selection
-from pyodds.utils.plotUtils import visualize_distribution_static,visualize_distribution_time_serie,visualize_outlierscore,visualize_distribution,visualize_outlierresult
+from pyodds.utils.plotUtils import visualize_distribution_static,visualize_distribution_time_serie,visualize_outlierscore,visualize_distribution
 
 from pyodds.utils.utilities import check_parameter,standardizer,str2bool
 
@@ -32,7 +32,6 @@ def test_io_static():
     visualize_distribution_static(data, prediction_result, outlierness)
     visualize_distribution(data, prediction_result, outlierness)
     visualize_outlierscore(outlierness, prediction_result, contamination=0.1)
-    visualize_outlierresult(data,prediction_result)
 
 def test_io_time_serie():
     host = '127.0.0.1'
@@ -57,7 +56,7 @@ def test_io_time_serie():
     visualize_distribution_time_serie(clf.ts, data)
 
 def test_function():
-    check_parameter(2)
+    check_parameter(2,low=1,high=3)
     standardizer(np.random.rand(3,2)*100)
     str2bool('True')
 
