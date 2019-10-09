@@ -9,7 +9,7 @@ from pyodds.utils.plotUtils import visualize_distribution_static,visualize_distr
 from pyodds.utils.utilities import check_parameter,standardizer,str2bool
 
 # @pytest.fixture(scope='module')
-def io_test_static():
+def test_io_static():
     host = '127.0.0.1'
     user = 'user'
     password = '0906'
@@ -34,7 +34,7 @@ def io_test_static():
     visualize_outlierscore(outlierness, prediction_result, contamination=0.1)
     visualize_outlierresult(data,prediction_result)
 
-def io_test_time_serie():
+def test_io_time_serie():
     host = '127.0.0.1'
     user = 'user'
     password = '0906'
@@ -56,13 +56,13 @@ def io_test_time_serie():
 
     visualize_distribution_time_serie(clf.ts, data)
 
-def function_test():
+def test_function():
     check_parameter(2)
     standardizer(np.random.rand(3,2)*100)
     str2bool('True')
 
 if __name__ == "__main__":
-    io_test_static()
-    io_test_time_serie()
-    function_test()
+    test_io_static()
+    test_io_time_serie()
+    test_function()
     print("Everything passed")
