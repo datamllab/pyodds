@@ -14,7 +14,7 @@ setup(
     description='An end-to-end anomaly detection system',
     author='Data Analytics at Texas A&M (DATA) Lab, Yuening Li',
     author_email='yuehningli@gmail.com',
-    url='https://github.com/datamllab/PyODDS'
+    url='https://github.com/datamllab/PyODDS',
     install_requires=requirements,
     packages=find_packages(),
     python_requires='>=3.6',
