@@ -89,15 +89,3 @@ class StaticAutoEncoder(Base):
         """
         reconstruct_error= (np.square(self.model.predict(X)-X)).mean(axis=1)
         return reconstruct_error
-
-def l21shrink(epsilon,x):
-
-    output = x.numpy()
-    norm = np.linalg.norm(x.numpy(), ord=2, axis=0)
-    for i in range(x.numpy().shape[1]):
-        if norm[i] > epsilon:
-            for j in range(x.shape[0]):
-                output[j, i] = x.numpy()[j, i] - epsilon * x.numpy()[j, i] / norm[i]
-        else:
-            output[:, i] = 0.
-    return output
