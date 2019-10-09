@@ -19,7 +19,7 @@ def io_test_static():
     np.random.seed(42)
     conn,cursor=connect_server(host, user, password)
     ground_truth_whole = insert_demo_data(conn, cursor, 'db', 't', ground_truth_flag=True)
-    data, ground_truth = query_data(conn, cursor, 'db', 't','ts', ground_truth_whole,start_time='2019-07-20 00:00:00',end_time='2019-08-20 00:00:00',time_serie=False, ground_truth_flag=True)
+    data, ground_truth = query_data(conn, cursor, 'db', 't',time_serie_name='ts', ground_truth=ground_truth_whole,start_time='2019-07-20 00:00:00',end_time='2019-08-20 00:00:00',time_serie=False, ground_truth_flag=True)
 
     clf = algorithm_selection(alg, random_state=rng, contamination=0.1)
     print('Start processing:')
@@ -44,7 +44,7 @@ def io_test_time_serie():
     np.random.seed(42)
     conn,cursor=connect_server(host, user, password)
     ground_truth_whole = insert_demo_data(conn, cursor, 'db', 't', ground_truth_flag=True)
-    data, ground_truth = query_data(conn, cursor, 'db', 't','ts', ground_truth_whole,start_time='2019-07-20 00:00:00',end_time='2019-08-20 00:00:00',time_serie=True, ground_truth_flag=True)
+    data, ground_truth = query_data(conn, cursor, 'db', 't',time_serie_name='ts', ground_truth=ground_truth_whole,start_time='2019-07-20 00:00:00',end_time='2019-08-20 00:00:00',time_serie=True, ground_truth_flag=True)
 
     clf = algorithm_selection(alg, random_state=rng, contamination=0.1)
     print('Start processing:')
