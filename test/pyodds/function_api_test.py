@@ -48,8 +48,6 @@ def test_timestamp_api():
         prediction_result = clf.predict(data)
         outlierness = clf.decision_function(data)
         output_performance(alg, ground_truth, prediction_result, time.clock() - start_time, outlierness)
-    data, ground_truth = query_data(conn, cursor, 'db', 't',time_serie_name='ts', ground_truth=ground_truth_whole,start_time=None,end_time=None,time_serie=True, ground_truth_flag=True)
-    data, ground_truth = query_data(conn, cursor, 'db', 't',time_serie_name='ts', ground_truth=ground_truth_whole,start_time=None,end_time=None,time_serie=True, ground_truth_flag=False)
     conn.close()
 
 

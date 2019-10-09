@@ -11,7 +11,7 @@ if [ $GIT_IS_AVAILABLE -ne 0 ]; then #...
 		exit 1
 	fi
 fi
-
+export PYTHONPATH=/home/travis/build/datamllab/PyODDS
 git clone https://github.com/yli96/TDengine.git
 cd TDengine/
 mkdir build && cd build

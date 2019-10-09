@@ -33,6 +33,10 @@ def test_io_static():
     visualize_distribution(data, prediction_result, outlierness)
     visualize_outlierscore(outlierness, prediction_result, contamination=0.1)
 
+    data, ground_truth = query_data(conn, cursor, 'db', 't',time_serie_name='ts', ground_truth=ground_truth_whole,start_time=None,end_time='2019-08-20 00:00:00',time_serie=False, ground_truth_flag=True)
+    data, ground_truth = query_data(conn, cursor, 'db', 't',time_serie_name='ts', ground_truth=ground_truth_whole,start_time='2019-07-20 00:00:00',end_time=None,time_serie=False, ground_truth_flag=True)
+
+
 def test_io_time_serie():
     host = '127.0.0.1'
     user = 'user'
