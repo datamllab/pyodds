@@ -223,7 +223,7 @@ class PCA(Base):
                                      tol=self.tol,
                                      iterated_power=self.iterated_power,
                                      random_state=self.random_state)
-        self.detector_.fit(X=X, y=y)
+        self.detector_.fit(X=X, y=None)
 
         # copy the attributes from the sklearn PCA object
         self.n_components_ = self.detector_.n_components_

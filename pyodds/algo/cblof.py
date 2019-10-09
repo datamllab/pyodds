@@ -91,7 +91,7 @@ class CBLOF(Base):
             random_state=self.random_state,
             n_jobs=self.n_jobs))
 
-        self.clustering_estimator_.fit(X=X, y=y)
+        self.clustering_estimator_.fit(X=X, y=None)
         self.cluster_labels_ = self.clustering_estimator_.labels_
         self.cluster_sizes_ = np.bincount(self.cluster_labels_)
 
