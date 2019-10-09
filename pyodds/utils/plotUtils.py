@@ -134,21 +134,21 @@ def visualize_outlierscore(value,label,contamination,path=None):
 
 
 
-def visualize_outlierresult(X,label,path=None):
-    """
-    Visualize the predicted outlier result.
-
-    Parameters
-    ----------
-    X: numpy array of shape (n_test, n_features)
-        The test data.
-    label: numpy array of shape (n_test, )
-        The label of test data produced by the algorithm.
-
-    """
-    X['outlier']=pd.Series(label)
-    pal = dict(inlier="#4CB391", outlier="gray")
-    g = sns.pairplot(X, hue="outlier", palette=pal)
-    if path:
-        plt.savefig(path+'/visualize_outlierresult.png')
-    plt.show()
+# def visualize_outlierresult(X,label,path=None):
+#     """
+#     Visualize the predicted outlier result.
+#
+#     Parameters
+#     ----------
+#     X: numpy array of shape (n_test, n_features)
+#         The test data.
+#     label: numpy array of shape (n_test, )
+#         The label of test data produced by the algorithm.
+#
+#     """
+#     X['outlier']=pd.Series(label)
+#     pal = dict(inlier="#4CB391", outlier="gray")
+#     g = sns.pairplot(X, hue="outlier", palette=pal)
+#     if path:
+#         plt.savefig(path+'/visualize_outlierresult.png')
+#     plt.show()
