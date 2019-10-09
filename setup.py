@@ -17,5 +17,5 @@ setup(
     url='https://github.com/datamllab/PyODDS',
     install_requires=requirements,
     packages=find_packages(),
-    python_requires='>=3.6',
+    python_requires='>=3.5',
 )
