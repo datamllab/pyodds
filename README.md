@@ -3,7 +3,6 @@
 [![Coverage Status](https://coveralls.io/repos/github/datamllab/PyODDS/badge.svg?branch=master)](https://coveralls.io/github/datamllab/PyODDS?branch=master)
 [![Documentation Status](https://readthedocs.org/projects/pyodds-handbook/badge/?version=latest)](https://pyodds.github.io/)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3456033f37744ae2a5a69da448ee430d)](https://www.codacy.com/manual/pyodds/PyODDS?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pyodds/PyODDS&amp;utm_campaign=Badge_Grade)
-[![Known Vulnerabilities](https://snyk.io//test/github/pyodds/PyODDS/badge.svg?targetFile=requirements.txt)](https://snyk.io//test/github/pyodds/PyODDS?targetFile=requirements.txt)
 [![PyPI version](https://badge.fury.io/py/pyodds.svg)](https://badge.fury.io/py/pyodds)
 
 Official Website: [`pyodds.github.io`](https://pyodds.github.io/)
