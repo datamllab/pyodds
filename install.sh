@@ -19,7 +19,6 @@ cmake .. && cmake --build .
 make install
 cd ..
 pip install src/connector/python/linux/python3
-sudo taosd & pip install -e .
-cd ..
+sudo taosd & cd ..
 pip install -r requirements.txt
 
