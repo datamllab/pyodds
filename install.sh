@@ -16,6 +16,7 @@ git clone https://github.com/yli96/TDengine.git
 cd TDengine/
 mkdir build && cd build
 cmake .. && cmake --build .
+make install
 cd ..
 pip install src/connector/python/linux/python3
 sudo taosd & pip install -e .
