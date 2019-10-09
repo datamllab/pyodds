@@ -8,10 +8,8 @@ before_script:
   - pip install dm-sonnet
   - pip install python-coveralls
   - pip install pytest-cover
-  - ls
-  - pwd
-  - export PYTHONPATH=/home/yli/PG/PyODDS
 script:
+  - export PYTHONPATH=/home/travis/build/datamllab/PyODDS
   - chmod +x install.sh
   - ./install.sh
   - py.test --cov-report term --cov=pyodds test/
