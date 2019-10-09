@@ -8,7 +8,7 @@ from pyodds.utils.plotUtils import visualize_distribution_static,visualize_distr
 
 from pyodds.utils.utilities import check_parameter,standardizer,str2bool
 
-@pytest.fixture(scope='module')
+# @pytest.fixture(scope='module')
 def io_test_static():
     host = '127.0.0.1'
     user = 'user'
