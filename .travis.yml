@@ -13,3 +13,5 @@ script:
   - chmod +x install.sh
   - ./install.sh
   - py.test --cov-report term --cov=pyodds test/
+after_success:
+  - coveralls
