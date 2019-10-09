@@ -2,15 +2,15 @@ import pytest
 import numpy as np
 import time
 
-from pyodds.utils.utilities import output_performance,insert_demo_data,connect_server,query_data
-from pyodds.utils.importAlgorithm import algorithm_selection
+from ...pyodds.utils.utilities import output_performance,insert_demo_data,connect_server,query_data
+from ...pyodds.utils.importAlgorithm import algorithm_selection
 
 # @pytest.fixture(scope='module')
 def test_static_api():
     host = '127.0.0.1'
     user = 'user'
     password = '0906'
-    algorithm = ['iforest','ocsvm','lof','robustcovariance','cblof','knn','hbos','sod','pca','dagmm','autoencoder','lstm_ad','lstm_ed']
+    algorithm = ['iforest','ocsvm','lof','robustcovariance','cblof','knn','hbos','sod','pca','dagmm','autoencoder','lstm_ad','lstm_ed','staticautoencoder']
     rng = np.random.RandomState(42)
     np.random.seed(42)
     conn,cursor=connect_server(host, user, password)

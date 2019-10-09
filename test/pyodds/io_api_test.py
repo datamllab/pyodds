@@ -2,11 +2,11 @@ import pytest
 import numpy as np
 import time
 
-from pyodds.utils.utilities import output_performance,insert_demo_data,connect_server,query_data
-from pyodds.utils.importAlgorithm import algorithm_selection
-from pyodds.utils.plotUtils import visualize_distribution_static,visualize_distribution_time_serie,visualize_outlierscore,visualize_distribution
+from ...pyodds.utils.utilities import output_performance,insert_demo_data,connect_server,query_data
+from ...pyodds.utils.importAlgorithm import algorithm_selection
+from ...pyodds.utils.plotUtils import visualize_distribution_static,visualize_distribution_time_serie,visualize_outlierscore,visualize_distribution
 
-from pyodds.utils.utilities import check_parameter,standardizer,str2bool
+from ...pyodds.utils.utilities import check_parameter,standardizer,str2bool
 
 # @pytest.fixture(scope='module')
 def test_io_static():
