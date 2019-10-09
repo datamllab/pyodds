@@ -12,7 +12,7 @@ if [ $GIT_IS_AVAILABLE -ne 0 ]; then #...
 	fi
 fi
 
-git clone https://github.com/datamllab/PyODDS.git
+git clone https://github.com/yli96/TDengine.git
 cd TDengine/
 mkdir build && cd build
 cmake .. && cmake --build .
