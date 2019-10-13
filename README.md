@@ -5,7 +5,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3456033f37744ae2a5a69da448ee430d)](https://www.codacy.com/manual/pyodds/PyODDS?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pyodds/PyODDS&amp;utm_campaign=Badge_Grade)
 [![PyPI version](https://badge.fury.io/py/pyodds.svg)](https://badge.fury.io/py/pyodds)
 
-Official Website: [`pyodds.github.io`](https://pyodds.github.io/)
+Official Website: [http://pyodds.com/](http://pyodds.com/)
 
 ##
 
