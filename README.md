@@ -54,12 +54,12 @@ Yuening Li, Daochen Zha, Na Zou, Xia Hu. "PyODDS: An End-to-End Outlier Detectio
 
 Biblatex entry:
 
-  @article{li2019pyodds,
-    title={PyODDS: An End-to-End Outlier Detection System},
-    author={Li, Yuening and Zha, Daochen and Zou, Na and Hu, Xia},
-    journal={arXiv preprint arXiv:1910.02575},
-    year={2019}
-  }
+    @article{li2019pyodds,
+      title={PyODDS: An End-to-End Outlier Detection System},
+      author={Li, Yuening and Zha, Daochen and Zou, Na and Hu, Xia},
+      journal={arXiv preprint arXiv:1910.02575},
+      year={2019}
+    }
 
 
 ## Quick Start
