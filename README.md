@@ -9,7 +9,7 @@ Official Website: [http://pyodds.com/](http://pyodds.com/)
 
 ##
 
-**PyODDS** is an end-to end **Python** system for **outlier** **detection** with **database** **support**. PyODDS provides outlier detection algorithms which meet the demands for users in different fields, w/wo data science or machine learning background. PyODDS gives the ability to execute machine learning algorithms in-database without moving data out of the database server or over the network. It also provides access to a wide range of outlier detection algorithms, including statistical analysis and more recent deep learning based approaches.
+**PyODDS** is an end-to end **Python** system for **outlier** **detection** with **database** **support**. PyODDS provides outlier detection algorithms which meet the demands for users in different fields, w/wo data science or machine learning background. PyODDS gives the ability to execute machine learning algorithms in-database without moving data out of the database server or over the network. It also provides access to a wide range of outlier detection algorithms, including statistical analysis and more recent deep learning based approaches.  It is developed by [`DATA Lab`](http://faculty.cs.tamu.edu/xiahu/index.html) at Texas A&M University
 
 PyODDS is featured for:
 
