@@ -8,6 +8,7 @@ from pyodds.utils.utilities import output_performance,insert_demo_data,connect_s
 from pyodds.utils.importAlgorithm import algorithm_selection
 from pyodds.utils.plotUtils import visualize_distribution_static,visualize_distribution_time_serie,visualize_outlierscore,visualize_distribution
 from pyodds.utils.utilities import str2bool
+from pyodds.automl.cash import Cash
 warnings.simplefilter(action='ignore', category=FutureWarning)
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 warnings.simplefilter("ignore", UserWarning)
@@ -17,7 +18,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description="Anomaly Detection Platform Settings")
     parser.add_argument('--host', default='127.0.0.1')
-    parser.add_argument('--user', default='username')
+    parser.add_argument('--user', default='root')
     parser.add_argument('--random_seed',default=42, type=int)
     parser.add_argument('--database',default='db')
     parser.add_argument('--table',default='t')
@@ -64,7 +65,12 @@ if __name__ == '__main__':
     print('Load data successful')
 
     #algorithm
-
+    print(data.head(10))
+    if args.ground_truth:
+        alg_selector = Cash(data, ground_truth)
+    else:
+        alg_selector = Cash(data)
+    clf = alg_selector.model_selector(max_evals=50)
     clf = algorithm_selection(args.algorithm,random_state=rng,contamination=args.contamination)
     print('Start processing:')
     start_time = time.clock()
