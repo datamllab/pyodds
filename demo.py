@@ -23,13 +23,13 @@ if __name__ == '__main__':
     parser.add_argument('--database',default='db')
     parser.add_argument('--table',default='t')
     parser.add_argument('--time_stamp',const=True,type=str2bool,nargs='?')
-    parser.add_argument('--visualize_distribution',const=True,type=str2bool,nargs='?')
+    parser.add_argument('--visualize_distribution',default=True,const=True,type=str2bool,nargs='?')
     parser.add_argument('--algorithm',default='dagmm',choices=['iforest','lof','ocsvm','robustcovariance','staticautoencoder','luminol','cblof','knn','hbos','sod','pca','dagmm','autoencoder','lstm_ad','lstm_ed'])
     parser.add_argument('--contamination',default=0.05)
     parser.add_argument('--start_time',default='2019-07-20 00:00:00')
     parser.add_argument('--end_time',default='2019-08-20 00:00:00')
     parser.add_argument('--time_serie_name',default='ts')
-    parser.add_argument('--ground_truth',const=True,type=str2bool,nargs='?')
+    parser.add_argument('--ground_truth',default=True,const=True,type=str2bool,nargs='?')
     parser.add_argument('--saving_path',default='./output/img')
 
 
@@ -69,9 +69,9 @@ if __name__ == '__main__':
     if args.ground_truth:
         alg_selector = Cash(data, ground_truth)
     else:
-        alg_selector = Cash(data)
+        alg_selector = Cash(data, None)
     clf = alg_selector.model_selector(max_evals=50)
-    clf = algorithm_selection(args.algorithm,random_state=rng,contamination=args.contamination)
+
     print('Start processing:')
     start_time = time.clock()
     clf.fit(data)
@@ -89,6 +89,5 @@ if __name__ == '__main__':
         else:
             visualize_distribution_time_serie(clf.ts,data,args.saving_path)
             visualize_outlierscore(outlierness,prediction_result,args.contamination,args.saving_path)
-
 
     conn.close()

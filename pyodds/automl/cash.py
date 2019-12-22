@@ -6,13 +6,15 @@ from sklearn.metrics import roc_auc_score,mean_squared_error
 
 
 class Cash():
-	def __init__(self,data,ground_truth=None):
+	def __init__(self,data,ground_truth):
 
 		self.train, self.test, self.test_ground_truth= self.split(data,ground_truth)
 		self.count = 0
 		self.best_classifier = None
 
-	def split(self,data,ground_truth,split_ratio=0.66):
+	@staticmethod
+	def split(data,ground_truth=None):
+		split_ratio = 0.66
 		num_samples = data.shape[0]
 		split = int(num_samples*split_ratio)
 		if ground_truth is not None:
@@ -27,11 +29,11 @@ class Cash():
 		predictions = clf.predict(self.test)
 
 		if self.test_ground_truth is not None:
-			plot_predictions(predictions, self.test_ground_truth,
-			                 param['type'] + str(count) + ".png")
+			# plot_predictions(predictions, self.test_ground_truth,
+			#                  param['type'] + str(count) + ".png")
 			loss = -1* roc_auc_score(self.test_ground_truth,predictions)
 		else:
-			#Trade-off FPs for FNs - Practical application HealthCare industry
+			# Trade-off to prefer FPs over FNs - Practical application HealthCare industry
 			loss = mean_squared_error(predictions,np.asarray([0]*len(predictions)))
 		return loss
 
