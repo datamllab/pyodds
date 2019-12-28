@@ -151,7 +151,7 @@ def output_performance(algorithm,ground_truth,y_pred,time,outlierness):
         The outlierness results as numpy array.
 
     """
-    print ('=' * 30)
+    print ('=' * 50)
     print ('Results in Algorithm %s are:' %algorithm)
     print ('accuracy_score: %.2f' %accuracy_score(ground_truth, y_pred))
     print ('precision_score: %.2f' %precision_score(ground_truth, y_pred))
@@ -159,7 +159,7 @@ def output_performance(algorithm,ground_truth,y_pred,time,outlierness):
     print ('f1_score: %.2f' %f1_score(ground_truth, y_pred))
     print ('processing time: %.6f seconds' %time)
     print ('roc_auc_score: %.2f' %max(roc_auc_score(ground_truth, outlierness),1-roc_auc_score(ground_truth, outlierness)))
-    print('=' * 30)
+    print('=' * 50)
 
 def connect_server(host,user,password):
     """

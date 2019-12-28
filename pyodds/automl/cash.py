@@ -1,37 +1,45 @@
-from pyodds.automl.config_space import CUMULATIVE_SEARCH_SPACE, plot_predictions, construct_classifier
+from pyodds.automl.config_space import construct_search_space, plot_predictions, construct_classifier
 from sklearn.metrics import accuracy_score,precision_score,recall_score,f1_score
 import numpy as np
+import contextlib
+import io
+import time
+from pyodds.utils.utilities import output_performance
 from hyperopt import fmin,tpe, Trials,space_eval
 from sklearn.metrics import roc_auc_score,mean_squared_error
 
 
 class Cash():
 	def __init__(self,data,ground_truth):
-
-		self.train, self.test, self.test_ground_truth= self.split(data,ground_truth)
+		self.results = ""
+		self.data = data
+		self.search_space = construct_search_space(self.data.shape[0],self.data.shape[1])
+		self.gt = ground_truth
 		self.count = 0
 		self.best_classifier = None
 
-	@staticmethod
-	def split(data,ground_truth=None):
-		split_ratio = 0.66
-		num_samples = data.shape[0]
-		split = int(num_samples*split_ratio)
-		if ground_truth is not None:
-			return data.iloc[:split], data.iloc[split:], ground_truth[split:]
-		else:
-			return data.iloc[:split], data.iloc[split:], None
 
 	def objective_function(self,param,count):
 		clf = construct_classifier(param)
-		clf.fit(self.train)
+		start = time.time()
 
-		predictions = clf.predict(self.test)
+		clf.fit(self.data)
+		outlierness = clf.decision_function(self.data)
+		predictions = clf.predict(self.data)
 
-		if self.test_ground_truth is not None:
-			# plot_predictions(predictions, self.test_ground_truth,
-			#                  param['type'] + str(count) + ".png")
-			loss = -1* roc_auc_score(self.test_ground_truth,predictions)
+		if self.gt is not None:
+			# store complete performance metrics for each trial
+			f = io.StringIO()
+			message = "\nTRIAL " + str(count) + " using " + str(param) +"\n"
+			with contextlib.redirect_stdout(f):
+				output_performance(clf, self.gt, predictions,
+				                   time.time() - start, outlierness)
+			message += f.getvalue()
+			self.results += message
+			f.close()
+			# move to an internal method
+
+			loss = -1* roc_auc_score(self.gt,predictions)
 		else:
 			# Trade-off to prefer FPs over FNs - Practical application HealthCare industry
 			loss = mean_squared_error(predictions,np.asarray([0]*len(predictions)))
@@ -43,7 +51,6 @@ class Cash():
 
 	def model_selector(self,max_evals=50):
 		trials = Trials()
-		best_clf = fmin(self.f, CUMULATIVE_SEARCH_SPACE, algo=tpe.suggest, max_evals=max_evals, trials=trials)
-		config = space_eval(CUMULATIVE_SEARCH_SPACE,best_clf)
-		print(config)
-		return construct_classifier(config)
+		best_clf = fmin(self.f, self.search_space, algo=tpe.suggest, max_evals=max_evals, trials=trials)
+		config = space_eval(self.search_space,best_clf)
+		return construct_classifier(config) , self.results

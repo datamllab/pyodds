@@ -19,10 +19,10 @@ from pyodds.algo.lstmencdec import LSTMED
 from pyodds.algo.autoencoder import AUTOENCODER
 
 
-def construct_search_space():
+def construct_search_space(n_samples,num_features):
 	activation = hp.choice('activation', ['sigmoid', 'relu', 'hard_sigmoid'])
 	random_state = np.random.randint(500)
-	contamination = hp.choice('contamination', [0.5, 0.4, 0.3])
+	contamination = 0.05
 
 	space_config = hp.choice('classifier_type', [
 		{
@@ -51,7 +51,7 @@ def construct_search_space():
 		{
 			'type': 'robustcovariance',
 			'random_state': random_state, 'store_precision': True,
-			'assume_centered': False, 'support_fraction': None,
+			'assume_centered': False, 'support_fraction': n_samples,
 			'contamination': contamination,
 		},
 		{
@@ -125,9 +125,6 @@ def construct_search_space():
 	return space_config
 
 
-CUMULATIVE_SEARCH_SPACE = construct_search_space()
-
-
 def construct_classifier(x):
 	clf = None
 	if x['type'] == 'iforest':
@@ -192,7 +189,7 @@ def construct_classifier(x):
 		      lambda_cov_diag=0.005, lr=1e-3, batch_size=50, gmm_k=3,
 		      normal_percentile=80, sequence_length=30, autoencoder_args=None)
 
-	print("Selected classifier is ",clf," for ",x)
+	#print("Selected classifier is ",clf," for ",x)
 	return clf
 
 
