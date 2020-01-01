@@ -1,5 +1,6 @@
 from sklearn.ensemble.iforest import IsolationForest
 from pyodds.algo.base import Base
+import numpy as np
 
 class IFOREST(IsolationForest,Base):
 
@@ -114,4 +115,28 @@ class IFOREST(IsolationForest,Base):
            anomaly detection." ACM Transactions on Knowledge Discovery from
            Data (TKDD) 6.1 (2012): 3.
     """
+
+    def anomaly_likelihood(self, X):
+        print("Base implementation called - Threshold 0 and outliers are -ve scores")
+        thrsh = np.percentile(self.decision_function(X),
+                                             100. * self.contamination)
+        threshold = thrsh if self.behaviour == 'old' else 0
+        k = self.decision_function(X)
+
+        mask = k < threshold
+
+        sc_pos = k.clip(max=0)
+        sc_neg = k.clip(min=0)
+
+        lmn = np.copy(k)
+        sc_pos = np.interp(sc_pos, (sc_pos.min(), sc_pos.max()), (1, 0.5))
+        sc_neg = np.interp(sc_neg, (sc_neg.min(), sc_neg.max()), (0.5, 0.0))
+
+        lmn[mask] = sc_pos[mask]
+        lmn[np.logical_not(mask)] = sc_neg[np.logical_not(mask)]
+
+        del k
+        del sc_pos
+        del sc_neg
+        return lmn
 

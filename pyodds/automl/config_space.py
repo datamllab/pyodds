@@ -21,17 +21,21 @@ from pyodds.algo.autoencoder import AUTOENCODER
 
 def construct_search_space(n_samples,num_features):
 	activation = hp.choice('activation', ['sigmoid', 'relu', 'hard_sigmoid'])
+	num_features = num_features if num_features>0 else 1
 	random_state = np.random.randint(500)
-	contamination = 0.05
+	contamination = hp.choice('contamination',[0.005,0.01,0.001])
+	num_epochs = hp.choice('epochs',[10,15,20])
+	metric = hp.choice('metric', ['minkowski', 'jaccard', 'manhattan'])
 
 	space_config = hp.choice('classifier_type', [
 		{
-			'type': 'iforest', 'contamination': contamination, 'n_estimators': 100,
+			'type': 'iforest', 'contamination': contamination,
+			'n_estimators': hp.choice('estimators', [100, 50, 150]),
 			'max_samples': "auto",
 			'max_features': 1.,
 			'bootstrap': False, 'n_jobs': None,
 			'behaviour': 'old',
-			'random_state': random_state
+			'random_state': random_state,
 		},
 		{
 			'type': 'ocsvm',
@@ -44,8 +48,11 @@ def construct_search_space(n_samples,num_features):
 		},
 		{
 			'type': 'lof',
-			'contamination': contamination, 'n_neighbors': 20, 'algorithm': 'auto',
-			'leaf_size': 30, 'metric': 'minkowski', 'p': 2, 'metric_params': None,
+			'contamination': contamination, 'n_neighbors': 20,
+			'algorithm': hp.choice('algorithm', ['auto', 'ball_tree', 'kd_tree']),
+			'leaf_size': 30,
+			'metric':metric , 'p': 2,
+			'metric_params': None,
 			'novelty': True,
 		},
 		{
@@ -72,7 +79,7 @@ def construct_search_space(n_samples,num_features):
 			'type': 'knn',
 			'contamination': contamination, 'n_neighbors': 5, 'method': 'largest',
 			'radius': 1.0,
-			'algorithm': 'auto', 'leaf_size': 30, 'metric': 'minkowski', 'p': 2,
+			'algorithm': 'auto', 'leaf_size': 30, 'metric': metric, 'p': 2,
 			'metric_params': None, 'n_jobs': 1,
 		},
 		{
@@ -110,13 +117,13 @@ def construct_search_space(n_samples,num_features):
 		},
 		{
 			'type': 'lstm_ad',
-			'contamination': contamination, 'len_in': 1, 'len_out': 10,
-			'num_epochs': 10,
+			'contamination': contamination, 'len_in': num_features, 'len_out': 10,
+			'num_epochs': num_epochs,
 			'lr': 1e-3, 'batch_size': 1,
 		},
 		{
 			'type': 'lstm_ed',
-			'contamination': contamination, 'num_epochs': 10, 'batch_size': 20,
+			'contamination': contamination, 'num_epochs': num_epochs, 'batch_size': hp.choice('batch_size',[20,50,100]),
 			'lr': 1e-3,
 			'hidden_size': 5, 'sequence_length': 30,
 			'train_gaussian_percentage': 0.25,
@@ -189,7 +196,6 @@ def construct_classifier(x):
 		      lambda_cov_diag=0.005, lr=1e-3, batch_size=50, gmm_k=3,
 		      normal_percentile=80, sequence_length=30, autoencoder_args=None)
 
-	#print("Selected classifier is ",clf," for ",x)
 	return clf
 
 

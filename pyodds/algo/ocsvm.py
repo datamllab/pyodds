@@ -1,5 +1,6 @@
 from sklearn.svm import OneClassSVM
 from pyodds.algo.base import Base
+import numpy as np
 
 class OCSVM(OneClassSVM,Base):
     """Unsupervised Outlier Detection.
@@ -80,3 +81,24 @@ class OCSVM(OneClassSVM,Base):
     >>> clf.score_samples(X)  # doctest: +ELLIPSIS
     array([1.7798..., 2.0547..., 2.0556..., 2.0561..., 1.7332...])
     """
+
+    def anomaly_likelihood(self, X):
+        print("Base implementation called - Threshold 0 and outliers are -ve scores")
+        k = self.decision_function(X)
+
+        mask = k < 0
+
+        sc_pos = k.clip(max=0)
+        sc_neg = k.clip(min=0)
+
+        lmn = np.copy(k)
+        sc_pos = np.interp(sc_pos, (sc_pos.min(), sc_pos.max()), (1, 0.5))
+        sc_neg = np.interp(sc_neg, (sc_neg.min(), sc_neg.max()), (0.5, 0.0))
+
+        lmn[mask] = sc_pos[mask]
+        lmn[np.logical_not(mask)] = sc_neg[np.logical_not(mask)]
+
+        del k
+        del sc_pos
+        del sc_neg
+        return lmn

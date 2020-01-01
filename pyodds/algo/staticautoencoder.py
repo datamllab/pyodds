@@ -5,6 +5,8 @@ import numpy as np
 from sklearn import preprocessing
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
+
 class StaticAutoEncoder(Base):
     def __init__(self,hidden_neurons=None,epoch=100,dropout_rate=0.2,contamination=0.1,regularizer_weight=0.1,activation='relu',kernel_regularizer=0.01,loss_function='mse',optimizer='adam'):
         self.hidden_neurons=hidden_neurons
@@ -23,7 +25,7 @@ class StaticAutoEncoder(Base):
             raise ValueError("Hidden units should be symmetric")
 
     def _build_model(self):
-        model =  tf.keras.Sequential()
+        model = tf.keras.Sequential()
         for neuron_num in self.hidden_neurons:
             model.add(layers.Dense(neuron_num,activation=self.activation,kernel_regularizer=tf.keras.regularizers.l1(self.kernel_regularizer)))
             model.add(layers.Dropout(self.dropout_rate))
@@ -47,6 +49,26 @@ class StaticAutoEncoder(Base):
         self.model.fit(X_train,X_train,epochs=self.epoch,batch_size=self.batch_size)
 
         return self
+
+    def anomaly_likelihood(self, X):
+        k = self.decision_function(X)
+        diff = k - self.threshold
+        mask = diff > 0
+
+        sc_pos = np.clip(diff,a_min=0,a_max=None)
+        sc_neg = np.clip(diff,a_max=0,a_min=None)
+
+        lmn = np.copy(diff)
+
+        sc_pos = np.interp(sc_pos, (sc_pos.min(), sc_pos.max()), (0.5, 1))
+        sc_neg = np.interp(sc_neg, (sc_neg.min(), sc_neg.max()), (0.0, 0.5))
+        # print(sc_pos,sc_neg)
+        lmn[mask] = sc_pos[mask]
+        lmn[np.logical_not(mask)] = sc_neg[np.logical_not(mask)]
+        del diff
+        del sc_pos
+        del sc_neg
+        return lmn
 
     def predict(self, X):
         """Return outliers with -1 and inliers with 1, with the outlierness score calculated from the `decision_function(X)',

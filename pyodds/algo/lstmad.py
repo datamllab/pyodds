@@ -87,6 +87,26 @@ class LSTMAD(Base,deepBase, PyTorchUtils):
         self.mean = np.mean(norm, axis=0)
         self.cov = np.cov(norm.T)
 
+    def anomaly_likelihood(self, X):
+        k = self.decision_function(X)
+        diff = k - self.threshold
+        mask = diff > 0
+
+        sc_pos = diff.clip(min=0)
+        sc_neg = diff.clip(max=0)
+
+        lmn = np.copy(diff)
+
+        sc_pos = np.interp(sc_pos, (sc_pos.min(), sc_pos.max()), (0.5, 1))
+        sc_neg = np.interp(sc_neg, (sc_neg.min(), sc_neg.max()), (0.0, 0.5))
+        # print(sc_pos,sc_neg)
+        lmn[mask] = sc_pos[mask]
+        lmn[np.logical_not(mask)] = sc_neg[np.logical_not(mask)]
+        del diff
+        del sc_pos
+        del sc_neg
+        return lmn
+
     def predict(self, X):
         """Return outliers with -1 and inliers with 1, with the outlierness score calculated from the `decision_function(X)',
         and the threshold `contamination'.

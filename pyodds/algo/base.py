@@ -32,6 +32,23 @@ class Base(object):
         """
         pass
 
+    def anomaly_likelihood(self, X):
+        """Normalize anomaly scores returned provided by decision_function().
+        The anomaly scores calculated for the current detector is partitioned
+        based on self.threshold and each partition is normalized by 1-D interpolation
+        Emphasis is on outliers and hence normalization need not exclude them.
+        Parameters
+        ----------
+        X : dataframe of shape (n_samples, n_features)
+            The input samples. Sparse matrices are accepted only
+            if they are supported by the base estimator.
+        Returns
+        -------
+        normalized_anomaly_scores : numpy array of shape (n_samples,)
+            The normalized anomaly score of the input samples.
+        """
+        pass
+
     def decision_function(self,X):
         """Predict raw anomaly scores of X using the fitted detector.
         The anomaly score of an input sample is computed based on the fitted
