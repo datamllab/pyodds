@@ -5,6 +5,8 @@ import logging
 import pandas as pd
 import os
 import warnings
+import json
+from pyodds.algo.luminolFunc import luminolDet
 import matplotlib.pyplot as plt
 from pyodds.utils.importAlgorithm import algorithm_selection
 from sklearn.metrics import accuracy_score,precision_score,recall_score,f1_score,roc_auc_score
@@ -41,59 +43,66 @@ if __name__ == '__main__':
         os.mkdir(log_dir)
 
     gt_directory = args.nab_datadir
+    if not os.path.exists(gt_directory):
+        print("NAB dataset with ground truth is not available - Terminating program")
+    else:
 
-    for file in os.listdir(gt_directory):
-        f_name = file.split('.')[0][:-8]
-        data = pd.read_csv(os.path.join(gt_directory,file))
+        for file in os.listdir(gt_directory):
+            f_name = file.split('.')[0][:-8]
+            print("Current dataset ",f_name)
+            data = pd.read_csv(os.path.join(gt_directory,file))
 
-        #visualize_nab_stats(data,f_name)
+            data['value'] = data['value'].astype('float')
+            ground_truth = data['label'].values
+            labels_01 = np.copy(ground_truth)
+            labels_01[labels_01 == 1]=0
+            labels_01[labels_01 == -1] = 1
 
-        data['value'] = data['value'].astype('float')
-        ground_truth = data['label'].values
-        labels_01 = np.copy(ground_truth)
-        labels_01[labels_01 == 1]=0
-        labels_01[labels_01 == -1] = 1
+            with open('./combined_windows.json') as f:
+                jstring = f.read()
+            jdict = json.loads(jstring)
 
-        final_store = data[['timestamp','value','label']]
-        final_store['label']= labels_01
-        data.drop(['label','timestamp','Unnamed: 0'],axis=1,inplace=True)
+            windows = []
+            for k in jdict:
+                if f_name in k:
+                    windows = jdict[k]
+                    break
+            final_store = data[['timestamp','value','label']]
+            final_store['label']= labels_01
+            data.drop(['label','Unnamed: 0'],axis=1,inplace=True)
 
-        if args.ground_truth:
-            alg_selector = Cash(data, ground_truth)
-        else:
-            alg_selector = Cash(data, None)
+            if args.ground_truth:
+                alg_selector = Cash(data.copy(deep=True), ground_truth,windows)
+            else:
+                alg_selector = Cash(data.copy(deep=True), None,windows)
 
-        start_time = time.clock()
-        #clf = algorithm_selection("luminol",141,0.005)
-        clf , results, plotter = alg_selector.model_selector(max_evals=50)
-        end_time = time.clock()
+            start_time = time.clock()
+            clf , results = alg_selector.model_selector(max_evals=50)
+            end_time = time.clock()
 
-        # plotter.to_csv(f_name+'plotter.csv')
-        # fig, ax = plt.subplots()
-        # for ind,row in plotter.iterrows():
-        #     ax.plot(row['Fpr'],row['Tpr'],label=row['Algorithm'])
-        # ax.axis('equal')
-        # ax.legend(loc='upper left', frameon=False)
-        # #fig.show()
-        # fig.savefig(f_name+'.png',figsize=(100,100))
 
-        # results = pd.DataFrame(
-        #     columns=['Trial', 'Algorithm', 'F1_Score', 'ROC', 'Time', 'Precision',
-        #              'Recall'])
-        clf.fit(data)
-        prediction_result = clf.predict(data)
-        outlierness = clf.decision_function(data)
-        anomaly_scores = clf.anomaly_likelihood(data)
+            if isinstance(clf,luminolDet):
+                clf.fit(data)
+            else:
+                data.drop(["timestamp"],axis=1,inplace=True,errors="ignore")
+                clf.fit(data)
 
-        final_store['anomaly_score'] = anomaly_scores
-        final_store.to_csv(result_directory+'/pyodds_'+str(f_name)+'.csv')
+            prediction_result = clf.predict(data)
+            outlierness = clf.decision_function(data)
+            anomaly_scores = clf.anomaly_likelihood(data)
 
-        if args.ground_truth:
-            prec = precision_score(ground_truth, prediction_result)
-            rec = recall_score(ground_truth, prediction_result)
-            f1 = f1_score(ground_truth, prediction_result)
-            roc = max(roc_auc_score(ground_truth, outlierness),
-                                            1 - roc_auc_score(ground_truth,
-                                                              outlierness))
-            results.loc[len(results)] = ['Final',clf,f1,roc,end_time - start_time,prec,rec]
-            results.to_csv(log_dir+'/results_'+str(f_name)+'.csv')
+            final_store['anomaly_score'] = anomaly_scores
+            final_store.to_csv(result_directory+'/pyodds_'+str(f_name)+'.csv')
+
+            if args.ground_truth:
+                prec = precision_score(ground_truth, prediction_result)
+                rec = recall_score(ground_truth, prediction_result)
+                f1 = f1_score(ground_truth, prediction_result)
+                roc = max(roc_auc_score(ground_truth, outlierness),
+                                                1 - roc_auc_score(ground_truth,
+                                                                  outlierness))
+                results.loc[len(results)] = [clf,f1,roc,end_time-start_time,prec,rec]
+                results.to_csv(log_dir+'/results_'+str(f_name)+'.csv')
+
+
+

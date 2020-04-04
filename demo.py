@@ -23,7 +23,7 @@ if __name__ == '__main__':
     parser.add_argument('--database',default='db')
     parser.add_argument('--table',default='t')
     parser.add_argument('--time_stamp',const=True,type=str2bool,nargs='?')
-    parser.add_argument('--visualize_distribution',default=True,const=True,type=str2bool,nargs='?')
+    parser.add_argument('--visualize_distribution',default=False,const=True,type=str2bool,nargs='?')
     parser.add_argument('--algorithm',default='dagmm',choices=['iforest','lof','ocsvm','robustcovariance','staticautoencoder','luminol','cblof','knn','hbos','sod','pca','dagmm','autoencoder','lstm_ad','lstm_ed'])
     parser.add_argument('--contamination',default=0.05)
     parser.add_argument('--start_time',default='2019-07-20 00:00:00')
@@ -39,57 +39,64 @@ if __name__ == '__main__':
     rng = np.random.RandomState(args.random_seed)
     np.random.seed(args.random_seed)
 
-    password = getpass.getpass("Please input your password:")
+    password = "taosdata" #getpass.getpass("Please input your password:")
 
-    #connection configeration
+    #connection configuration
     conn,cursor=connect_server(args.host, args.user, password)
 
     #read data
     print('Load dataset and table')
     start_time = time.clock()
     if args.ground_truth:
-        ground_truth_whole=insert_demo_data(conn,cursor,args.database,args.table,args.ground_truth)
+        ground_truth_whole = insert_demo_data(conn, cursor, args.database,
+                                              args.table, args.ground_truth)
     else:
-        insert_demo_data(conn,cursor,args.database,args.table,args.ground_truth)
-
+        insert_demo_data(conn, cursor, args.database, args.table, args.ground_truth)
 
     if args.ground_truth:
 
-        data,ground_truth = query_data(conn,cursor,args.database,args.table,
-                                   args.start_time,args.end_time,args.time_serie_name,ground_truth_whole,time_serie=args.time_stamp,ground_truth_flag=args.ground_truth)
+        data, ground_truth = query_data(conn, cursor, args.database, args.table,
+                                        args.start_time, args.end_time,
+                                        args.time_serie_name, ground_truth_whole,
+                                        time_serie=args.time_stamp,
+                                        ground_truth_flag=args.ground_truth)
     else:
-        data = query_data(conn,cursor,args.database,args.table,
-                                   args.start_time,args.end_time,args.time_serie_name,time_serie=args.time_stamp,ground_truth_flag=args.ground_truth)
+        data = query_data(conn, cursor, args.database, args.table,
+                          args.start_time, args.end_time, args.time_serie_name,
+                          time_serie=args.time_stamp,
+                          ground_truth_flag=args.ground_truth)
 
     print('Loading cost: %.6f seconds' %(time.clock() - start_time))
     print('Load data successful')
 
     #algorithm
     print(data.head(10))
-    if args.ground_truth:
-        alg_selector = Cash(data, ground_truth)
-    else:
-        alg_selector = Cash(data, None)
-    print('Start AutoML:')
     start_time = time.clock()
-    clf = alg_selector.model_selector(max_evals=50)
+    if args.ground_truth:
+        print('Start AutoML:')
+        alg_selector = Cash(data, ground_truth, None)
+        clf, automl_results = alg_selector.model_selector(max_evals=5)
+        print('End AutoML:')
+    else:
+        print('No ground truth set. Bypassing AutoML')
+        clf = algorithm_selection(args.algorithm,args.random_seed,args.contamination)
     end_time = time.clock()
-    print('End AutoML:')
 
     clf.fit(data)
     prediction_result = clf.predict(data)
     outlierness = clf.decision_function(data)
 
-    if args.ground_truth:
-        output_performance(args.algorithm,ground_truth,prediction_result,end_time - start_time,outlierness)
-
     if args.visualize_distribution and args.ground_truth:
         if not args.time_stamp:
-            visualize_distribution_static(data,prediction_result,outlierness,args.saving_path)
-            visualize_distribution(data,prediction_result,outlierness,args.saving_path)
-            visualize_outlierscore(outlierness,prediction_result,args.contamination,args.saving_path)
+            visualize_distribution_static(data, prediction_result, outlierness,
+                                          args.saving_path)
+            visualize_distribution(data, prediction_result, outlierness,
+                                   args.saving_path)
+            visualize_outlierscore(outlierness, prediction_result,
+                                   args.contamination, args.saving_path)
         else:
-            visualize_distribution_time_serie(clf.ts,data,args.saving_path)
-            visualize_outlierscore(outlierness,prediction_result,args.contamination,args.saving_path)
+            visualize_distribution_time_serie(clf.ts, data, args.saving_path)
+            visualize_outlierscore(outlierness, prediction_result,
+                                   args.contamination, args.saving_path)
 
     conn.close()
