@@ -99,7 +99,7 @@ class LSTMAD(Base,deepBase, PyTorchUtils):
 
         sc_pos = np.interp(sc_pos, (sc_pos.min(), sc_pos.max()), (0.5, 1))
         sc_neg = np.interp(sc_neg, (sc_neg.min(), sc_neg.max()), (0.0, 0.5))
-        # print(sc_pos,sc_neg)
+
         lmn[mask] = sc_pos[mask]
         lmn[np.logical_not(mask)] = sc_neg[np.logical_not(mask)]
         del diff
