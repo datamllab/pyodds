@@ -39,7 +39,7 @@ if __name__ == '__main__':
     rng = np.random.RandomState(args.random_seed)
     np.random.seed(args.random_seed)
 
-    password = getpass.getpass("Please input your password:")
+    password = "taosdata" #getpass.getpass("Please input your password:")
 
     #connection configeration
     conn,cursor=connect_server(args.host, args.user, password)
@@ -52,9 +52,7 @@ if __name__ == '__main__':
     else:
         insert_demo_data(conn,cursor,args.database,args.table,args.ground_truth)
 
-
     if args.ground_truth:
-
         data,ground_truth = query_data(conn,cursor,args.database,args.table,
                                    args.start_time,args.end_time,args.time_serie_name,ground_truth_whole,time_serie=args.time_stamp,ground_truth_flag=args.ground_truth)
     else:
@@ -64,15 +62,13 @@ if __name__ == '__main__':
     print('Loading cost: %.6f seconds' %(time.clock() - start_time))
     print('Load data successful')
 
-    #algorithm
-    print(data.head(10))
+    #Algorithm Selection
     if args.ground_truth:
         alg_selector = Cash(data, ground_truth)
+        clf = alg_selector.model_selector(max_evals=2)
     else:
-        alg_selector = Cash(data, None)
-    clf = alg_selector.model_selector(max_evals=50)
+        clf = algorithm_selection(args.algorithm,random_state=rng,contamination=args.contamination)
 
-    print('Start processing:')
     start_time = time.clock()
     clf.fit(data)
     prediction_result = clf.predict(data)
