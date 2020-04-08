@@ -20,5 +20,5 @@ make install
 cd ..
 pip install src/connector/python/linux/python3
 sudo taosd & cd ..
-pip install -r requirements.txt
+pip install -e .
 
