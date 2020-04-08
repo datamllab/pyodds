@@ -35,7 +35,7 @@ def algorithm_selection(algorithm,random_state,contamination):
         The selected algorithm method.
 
     """
-    algorithm_dic={'iforest':IFOREST(contamination=contamination,n_estimators=100,max_samples="auto", max_features=1.,bootstrap=False,n_jobs=None,behaviour='old',random_state=random_state,verbose=0),
+    algorithm_dic={'iforest':IFOREST(contamination=contamination,n_estimators=100,max_samples="auto", max_features=1.,bootstrap=False,n_jobs=None,random_state=random_state,verbose=0),
                    'ocsvm':OCSVM(gamma='auto',kernel='rbf', degree=3,coef0=0.0, tol=1e-3, nu=0.5, shrinking=True, cache_size=200,verbose=False, max_iter=-1),
                    'lof': LOF(contamination=contamination,n_neighbors=20, algorithm='auto', leaf_size=30,metric='minkowski', p=2, metric_params=None, novelty=True),
                    'robustcovariance':RCOV(random_state=random_state,store_precision=True, assume_centered=False,support_fraction=None, contamination=0.1),

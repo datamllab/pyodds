@@ -146,7 +146,7 @@ def construct_classifier(x):
                       n_estimators=x['n_estimators'],
                       max_samples=x['max_samples'], max_features=x['max_features'],
                       bootstrap=x['bootstrap'],
-                      n_jobs=x['n_jobs'], behaviour=x['behaviour'],
+                      n_jobs=x['n_jobs'],
                       random_state=x['random_state'])
     elif x['type'] == 'ocsvm':
         clf = OCSVM(gamma=x['gamma'], kernel=x['kernel'], degree=x['degree'],
