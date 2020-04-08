@@ -305,7 +305,7 @@ def query_data(conn,cursor,database,table,start_time,end_time,time_serie_name,gr
                 raise (err)
 
             whole_tmp = pd.DataFrame(list(whole_data))
-            timestamp=np.array(whole_tmp.ix[:,0].to_numpy(), dtype='datetime64')
+            timestamp=np.array(whole_tmp.iloc[:,0].to_numpy(), dtype='datetime64')
             timestamp=np.reshape(timestamp,-1)
             new_ground_truth=[]
             if start_time and end_time:
