@@ -21,9 +21,8 @@ from pyodds.algo.autoencoder import AUTOENCODER
 def construct_search_space():
     """ Search space constructed for each of the 13 baseline algorithms.
 
-    The anomaly score of an input sample is computed based on different
-    detector algorithms. For consistency, outliers are assigned with
-    larger anomaly scores.
+    Each algorithm is set with its own parameter space, consisting of both
+    static parameters and hp.choice()
 
     Returns
     -------
