@@ -49,5 +49,20 @@ class Base(object):
         """
         pass
 
-
+    def anomaly_likelihood(self, X):
+        """A normalization function to clip and scale the outlier_scores returned
+        by self.decision_function(). Normalization is done separately for data
+        points falling above and below the threshold
+        Parameters
+        ----------
+        X : dataframe of shape (n_samples, n_features)
+            The training input samples. Sparse matrices are accepted only
+            if they are supported by the base estimator.
+        Returns
+        -------
+        normalized_anomaly_scores : numpy array of shape (n_samples,)
+            Normalized anomaly scores where 0.5 is the default threshold separating
+            low-scoring inliers from high-scoring outliers
+        """
+        pass
 
