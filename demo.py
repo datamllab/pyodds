@@ -73,9 +73,10 @@ if __name__ == '__main__':
     clf.fit(data)
     prediction_result = clf.predict(data)
     outlierness = clf.decision_function(data)
+    anomaly_scores = clf.anomaly_likelihood(data)
 
     if args.ground_truth:
-        output_performance(args.algorithm,ground_truth,prediction_result,time.clock() - start_time,outlierness)
+        output_performance(args.algorithm,ground_truth,prediction_result,time.clock() - start_time,anomaly_scores)
 
     if args.visualize_distribution and args.ground_truth:
         if not args.time_stamp:

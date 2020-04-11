@@ -245,6 +245,36 @@ class KNN(Base):
         ranking[np.logical_not(mask)]=1
         return ranking
 
+    def anomaly_likelihood(self, X):
+        """A normalization function to clip and scale the outlier_scores returned
+        by self.decision_function(). Normalization is done separately for data
+        points falling above and below the threshold
+        Parameters
+        ----------
+        X : dataframe of shape (n_samples, n_features)
+            The training input samples. Sparse matrices are accepted only
+            if they are supported by the base estimator.
+        Returns
+        -------
+        normalized_anomaly_scores : numpy array of shape (n_samples,)
+            Normalized anomaly scores where 0.5 is the default threshold separating
+            inliers with low scores from outliers with high score
+        """
+        outlier_score = self.decision_function(X)
+        diff = outlier_score - self.threshold
+        mask = diff > 0
+
+        sc_pos = diff.clip(min=0)
+        sc_neg = diff.clip(max=0)
+
+        lmn = np.copy(diff)
+        sc_pos = np.interp(sc_pos, (sc_pos.min(), sc_pos.max()), (0.5, 1))
+        sc_neg = np.interp(sc_neg, (sc_neg.min(), sc_neg.max()), (0.0, 0.5))
+
+        lmn[mask] = sc_pos[mask]
+        lmn[np.logical_not(mask)] = sc_neg[np.logical_not(mask)]
+        del diff, sc_pos, sc_neg
+        return lmn
 
     def _get_dist_by_method(self, dist_arr):
         """Internal function to decide how to process passed in distance array

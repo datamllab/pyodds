@@ -28,11 +28,13 @@ class Cash():
         clf.fit(self.train)
 
         predictions = clf.predict(self.test)
-
+        anomaly_scores = clf.anomaly_likelihood(self.test)
         if self.test_ground_truth is not None:
             # plot_predictions(predictions, self.test_ground_truth,
             #                  param['type'] + str(count) + ".png")
-            loss = -1 * roc_auc_score(self.test_ground_truth, predictions)
+            loss = -1 * max(roc_auc_score(self.test_ground_truth, anomaly_scores),
+                            1 - roc_auc_score(self.test_ground_truth,
+                                              anomaly_scores))
         else:
             # Trade-off to prefer FPs over FNs - Practical application HealthCare
             loss = mean_squared_error(predictions,

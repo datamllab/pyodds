@@ -70,6 +70,23 @@ class StaticAutoEncoder(Base):
         ranking[np.logical_not(mask)]=1
         return ranking
 
+    def anomaly_likelihood(self, X):
+        ourlier_score = self.decision_function(X)
+        diff = ourlier_score - self.threshold
+        mask = diff > 0
+
+        sc_pos = np.clip(diff, a_min=0, a_max=None)
+        sc_neg = np.clip(diff, a_max=0, a_min=None)
+
+        lmn = np.copy(diff)
+        sc_pos = np.interp(sc_pos, (sc_pos.min(), sc_pos.max()), (0.5, 1))
+        sc_neg = np.interp(sc_neg, (sc_neg.min(), sc_neg.max()), (0.0, 0.5))
+
+        lmn[mask] = sc_pos[mask]
+        lmn[np.logical_not(mask)] = sc_neg[np.logical_not(mask)]
+        del diff, sc_pos, sc_neg
+        return lmn
+
     def decision_function(self,X):
         """Predict raw anomaly score of X using the fitted detector.
 
