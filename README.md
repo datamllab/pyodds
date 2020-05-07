@@ -57,35 +57,20 @@ Yuening Li, Daochen Zha, Praveen Kumar Venugopal, Na Zou, Xia Hu. "PyODDS: An En
 Biblatex entry:
 
 @inproceedings{10.1145/3366424.3383530,
-
     author = {Li, Yuening and Zha, Daochen and Venugopal, Praveen and Zou, Na and Hu, Xia},
-
     title = {PyODDS: An End-to-End Outlier Detection System with Automated Machine Learning},
-
     year = {2020},
-
     isbn = {9781450370240},
-
     publisher = {Association for Computing Machinery},
-
     address = {New York, NY, USA},
-
     url = {https://doi.org/10.1145/3366424.3383530},
-
     doi = {10.1145/3366424.3383530},
-
     booktitle = {Companion Proceedings of the Web Conference 2020},
-
     pages = {153--157},
-
     numpages = {5},
-
     keywords = {Automated Machine Learning, Outlier Detection, Open Source Package, End-to-end System},
-
     location = {Taipei, Taiwan},
-
     series = {WWW '20}
-
   }
 
 
