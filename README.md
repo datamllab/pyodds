@@ -19,7 +19,7 @@ PyODDS is featured for:
 
   - **Powerful Data Analysis Mechanism** which supports both **static and time-series data** analysis with flexible time-slice(sliding-window) segmentation.  
   
-  - **Automated Machine Learning** PyODDS describes the first attempt to incorporate automated machine learning with outlier detection, and belongs to one of the first attempts to extend automated machine learning concepts into real- world data mining tasks
+  - **Automated Machine Learning** PyODDS describes the first attempt to incorporate automated machine learning with outlier detection, and belongs to one of the first attempts to extend automated machine learning concepts into real-world data mining tasks.
 
 The Full API Reference can be found in [`handbook`](https://pyodds.github.io/).
 
