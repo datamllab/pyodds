@@ -52,16 +52,28 @@ visualize_distribution(X_test,prediction_result,outlierness_score)
 ## Cite this work
 
 
-Yuening Li, Daochen Zha, Na Zou, Xia Hu. "PyODDS: An End-to-End Outlier Detection System"  ([Download](https://arxiv.org/pdf/1910.02575.pdf))
+Yuening Li, Daochen Zha, Praveen Kumar Venugopal, Na Zou, Xia Hu. "PyODDS: An End-to-end Outlier Detection System with Automated Machine Learning"  ([Download](https://dl.acm.org/doi/abs/10.1145/3366424.3383530))
 
 Biblatex entry:
 
-    @article{li2019pyodds,
-      title={PyODDS: An End-to-End Outlier Detection System},
-      author={Li, Yuening and Zha, Daochen and Zou, Na and Hu, Xia},
-      journal={arXiv preprint arXiv:1910.02575},
-      year={2019}
-    }
+  @inproceedings{10.1145/3366424.3383530,
+    author = {Li, Yuening and Zha, Daochen and Venugopal, Praveen and Zou, Na and Hu, Xia},
+    title = {PyODDS: An End-to-End Outlier Detection System with Automated Machine Learning},
+    year = {2020},
+    isbn = {9781450370240},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    url = {https://doi.org/10.1145/3366424.3383530},
+    doi = {10.1145/3366424.3383530},
+    booktitle = {Companion Proceedings of the Web Conference 2020},
+    pages = {153–157},
+    numpages = {5},
+    keywords = {Automated Machine Learning, Outlier Detection, Open Source Package, End-to-end System},
+    location = {Taipei, Taiwan},
+    series = {WWW ’20}
+  }
+
+
 
 
 ## Quick Start
