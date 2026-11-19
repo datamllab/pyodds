@@ -6,9 +6,16 @@ The Full API Reference can be found in `handbook`_.
 -  **connect_server(hostname,username,password)**: Connect to Apache
    backend TDengine Service.
 
+-  **connect_iotdb_server(host,user,password,port=6667)**: Open an Apache
+   IoTDB 2.x Tree-model session. Close the returned session after use.
+
 -  **query_data(connection,cursor,database_name,table_name,start_time,end_time)**:
    Query data from table *table_name* in database *database_name* within
    a given time range.
+
+-  **query_iotdb_data(session,database,table,start_time,end_time)**: Read a
+   Tree device from IoTDB into a pandas DataFrame, optionally aligning a
+   ground-truth array to the inclusive time window.
 
 -  **algorithm_selection(algorithm_name,contamination)**: Select an
    algorithm as detector.

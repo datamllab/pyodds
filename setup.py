@@ -1,4 +1,3 @@
-from distutils.core import setup
 from io import open
 from setuptools import find_packages,setup
 
@@ -6,7 +5,11 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 with open('requirements.txt') as f:
-    requirements = f.read().splitlines()
+    requirements = [
+        line.strip()
+        for line in f
+        if line.strip() and not line.lstrip().startswith('#')
+    ]
 
 setup(
     name='pyodds',
@@ -18,6 +21,10 @@ setup(
     long_description_content_type='text/markdown',
     url='https://github.com/datamllab/PyODDS',
     install_requires=requirements,
+    extras_require={
+        'iotdb': ['apache-iotdb>=2.0.10,<3.0'],
+        'tdengine': ['taos==1.4.15'],
+    },
     packages=find_packages(),
     python_requires='>=3.5',
 )

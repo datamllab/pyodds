@@ -2,11 +2,15 @@ import numpy as np
 import numbers
 from sklearn.metrics import accuracy_score,precision_score,recall_score,f1_score
 import datetime
-import taos
 import pandas as pd
 from sklearn.metrics import roc_auc_score
 from sklearn.preprocessing import StandardScaler
 import argparse
+
+try:
+    import taos
+except ImportError:
+    taos = None
 
 from sklearn.utils import check_array
 
@@ -190,6 +194,8 @@ def connect_server(host,user,password):
     # @password : Password
     # @database : Database to use when connecting to TDengine server
     # @config   : Configuration directory
+    if taos is None:
+        raise ImportError("The TDengine backend requires the optional taos client")
     conn = taos.connect(host,user,password,config="/etc/taos")
     cursor = conn.cursor()
     return conn,cursor
