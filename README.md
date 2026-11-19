@@ -118,7 +118,6 @@ pip install git+git@github.com:datamllab/PyODDS.git
 
 ```sh
 - pandas>=0.25.0
-- taos==1.4.15
 - tensorflow==2.0.0b1
 - numpy>=1.16.4
 - seaborn>=0.9.0
@@ -128,6 +127,36 @@ pip install git+git@github.com:datamllab/PyODDS.git
 - matplotlib>=3.1.1
 - scikit_learn>=0.21.3
 ```
+
+The TDengine client and IoTDB client are optional backend dependencies. Install
+the backend you use:
+
+```sh
+pip install 'pyodds[iotdb]'
+# or
+pip install 'pyodds[tdengine]'
+```
+
+### Apache IoTDB backend
+
+PyODDS supports Apache IoTDB 2.x using the Tree model and the Apache Python
+client. Configure the server address, user, and password through the demo CLI;
+the session uses UTC for timestamp interpretation. The demo creates the
+`root.<database>.<table>` device and its `a` and `b` FLOAT measurements, then
+writes the generated points in one device batch. Use a dedicated database for
+the demo because the rows have fixed 2019 timestamps and are overwritten when
+the demo runs again.
+
+```sh
+python demo.py --backend iotdb --host 127.0.0.1 --port 6667 \
+  --user your_user --database pyodds_demo --table t --ground_truth
+```
+
+For applications, `pyodds.utils.iotdb` exposes `connect_iotdb_server`,
+`insert_iotdb_demo_data`, and `query_iotdb_data`. Close the returned session
+with `session.close()` after the analysis. Time-window reads are inclusive;
+choose a bounded window appropriate for the data volume being analyzed.
+
 To compile and package the JDBC driver source code, you should have a Java jdk-8 or higher and Apache Maven 2.7 or higher installed. To install openjdk-8 on Ubuntu:
 
 ```sh
@@ -189,7 +218,11 @@ The Full API Reference can be found in [`handbook`](https://pyodds.github.io/).
 
   - **connect_server(hostname,username,password)**: Connect to Apache backend TDengine Service.
 
+  - **connect_iotdb_server(host, user, password, port=6667)**: Open an Apache IoTDB 2.x Tree-model session.
+
   - **query_data(connection,cursor,database_name,table_name,start_time,end_time)**: Query data from table *table_name* in database *database_name* within a given time range.
+
+  - **query_iotdb_data(session,database,table,start_time,end_time)**: Read a Tree device from IoTDB into a pandas DataFrame.
 
   - **algorithm_selection(algorithm_name,contamination)**: Select an algorithm as detector.
 
